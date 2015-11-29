@@ -1,0 +1,343 @@
+{
+  "firstname": "Jonas",
+  "lastname": "Linde",
+  "image": "jonas_linde.jpg",
+  "caption": [
+    "Civilingenjörsexamen i",
+    "teknisk fysik och beräkningsteknik vid",
+    "Uppsala Universitet 1992."
+  ],
+  "summary": [
+    "Mycket erfaren systemadministratör och utvecklare med gedigen kunskap om systemadministration och systemutveckling i Unixmiljö med Perl, C, Java och relationsdatabaser.",
+    "Jonas har arbetat med de flesta aspekter av systemadministration i Unix- och Linuxmiljö."
+  ],
+  "presentation": [
+    "Jonas är lösningsorienterad, analytisk och klarsynt. Han slår ofta huvudet på spiken. Han är prestigelös men har samtidigt höga kvalitetskrav. Som arbetskamrat är han hjälpsam och humoristisk.",
+    "Fritiden ägnar Jonas åt på tok för lite friluftsliv."
+  ],
+  "examples": [
+    {
+      "header": "Uppdrag",
+      "descriptions": [
+        "Verktygsutveckling i Unixmiljöer",
+        "Systemadministration i Linux och Unix",
+        "Förbättring av system för Continuous Integration",
+        "Byggnet, Utveckling av releasehanteringssystem"
+      ]
+    },
+    {
+      "header": "Roller",
+      "descriptions": [
+        "Systemadministratör i Unix och Linux",
+        "Systemutvecklare i Unix och Linux",
+        "Teamledare med fokus på DevOps",
+        "Lärare och mentor"
+      ]
+    },
+    {
+      "header": "Kunskaper",
+      "descriptions": [
+        "Unix, Solaris, Linux, Irix",
+        "Oracle, MySQL och PostgreSQL",
+        "Java, C++, C, Perl",
+        "Git, Chef, Cfengine, WMvare"
+      ]
+    }
+  ],
+
+  "assignments": [
+    {
+      "customer": "Klarna",
+      "from": "okt 2014",
+      "to": "dec 2015",
+      "title": "Förbättring av konfigurationshantering",
+      "description": [
+        "Kunden använder Chef för att hantera konfigurationen av olika servrar. Chef ingår i ett större system av verktyg som Jenkins, Jira, Git, Vagrant, och Docker som tillsammans används för kontinuerlig integration och leverans av samtliga delsystem som kunden använder i sina test- och produktionsmiljöer. Med domänkunskap om integrationen mellan utveckling och drift har Jonas bidragit till att säkerställa en stabil konfigurationshantering och ständigt fungerande integration."
+      ]
+    },
+    {
+      "customer": "Rikspolisstyrelsen",
+      "from": "okt",
+      "to": "nov 2014",
+      "title": "Konstruktion av säkerhetsprofiler",
+      "description": [
+        "Polisen deltar i ett internationellt samarbete för att tillgängliggöra biometriska data på passens RFID-chip till deltagande polismyndigheter. För att skydda systemet mot intrång används AppArmor. Jonas har analyserat de olika komponenternas användning och därefter med hjälp av de verktyg som AppArmor tillhandahåller skapat täckande säkerhetsprofiler för dem samt sett till att dessa installeras och konfigureras på rätt sätt med hjälp av en anpassad variant av konfigurations- och provisioneringsverktyget CFE."
+      ]
+    },
+    {
+      "customer": "Skatteverket",
+      "from": "2014",
+      "title": "Förvaltning av provisioneringsverktyg",
+      "description": [
+        "Skatteverket använder CFE för att hantera installation av programpaket på sina servrar samt i viss utsträckning för konfigurationshantering. Verktyget har fortlöpande anpassats till förändrade behov. Som en del av förvaltningen av Skatteverkets generella unixtillägg (SGUT) har Jonas med hjälp ingående kännedom om CFE särskilt bidragit med förbättring av CFE både när det gäller verktyget som sådant och när det gäller Skatteverkets användnings av det.  "
+      ]
+    },
+    {
+      "customer": "Arbetsförmedlingen",
+      "from": "2011",
+      "title": "Integration",
+      "description": [
+        "Projektet AIS-F Modernisering syftar till att ersätta den gamla stordatormiljön (BS2000) med en modernare. Detta görs för att säkerställa förvaltning och vidareutveckling på en modern standardiserad plattform vilket medför enklare kompetensförsörjning.",
+        "Några delmål var:",
+        [
+          "att migrera databasen från SESAM till Oracle",
+          "att införa ny arkitektur med Solaris och JBoss",
+          "att konvertera applikationerna från Cobol till Java",
+          "att hantera konfiguration med hjälp av Puppet"
+        ],
+        "Jonas bidrog med systemkunskap, analysförmåga och verktygsutveckling till att effektivt lösa de utmaningar som projektet medförde."
+      ]
+    },
+    {
+      "customer": "Rikspolisstyrelsen",
+      "from": "2011",
+      "title": "Teknikspecialist",
+      "description": [
+        "Polisen har en utvecklings- och driftplattform kallad Limbo baserad på Linux, MySQL och JBoss. Många servrar är virtualiserade med VMware och man använder CFEngine för konfigurationshantering. Jonas bidrog med kunskap om dessa tekniker i systemgruppens dagliga arbete."
+      ]
+    },
+    {
+      "customer": "Skatteverket",
+      "from": "2009",
+      "to": "2010",
+      "title": "Migrering av skattedatabasen",
+      "description": [
+        "Skatteverket har i samarbete med HP genomfört en migrering av Sveriges skattedatabas från Unisys till HP-UX. För att underlätta för den del av personalen som jobbar med systemet skapades ett hybridsystem där de metoder och arbetssätt som tidigare använts till stor del bevarades fast miljön bytts ut mot en Unixmiljö. Jonas har ansvarat för administration av Unixmiljön samt utveckling av verktyg i huvudsakligen Perl och Shellscript."
+      ]
+    },
+    {
+      "customer": "Skatteverket",
+      "from": "2007",
+      "to": "2009",
+      "title": "Miljöstöd",
+      "description": [
+        "Skatteverkets miljöer för utveckling och underhåll av applikationer är helt avskiljd från motsvarande driftsmiljöer både avseende hårdvara och personal. Den personal som ansvarar för administrationen av test- och utvecklingsmiljöer jobbar inom uppdraget Miljöstöd. Jonas har där dels arbetat med administration och underhåll samt bistått med expertkunskaper inom bl.a. Perl och CFE."
+      ]
+    },
+    {
+      "customer": "Tele2",
+      "from": "2006",
+      "to": "2007",
+      "title": "Administration och driftsupport av internettjänster",
+      "description": [
+        "I takt med att kundhanteringssystemet för Tele2:s internettjänster vuxit har behovet av support gentemot de nationella bolagen runt om i Europa ökat. Eftersom systemet utvecklas kontinuerligt krävs ständigt nya infallsvinklar för att klara av systerbolagens förväntningar. Samtidigt har komplexiteten på det interna systemet ökat med tjänster som LDAP, ssh, Kerberos, DNS, access listor för åtkomst och administration av den växande serverparken. Jonas har arbetat som systemadministratör med ansvar för ett flertal av systemets komponenter.",
+        "Källkoden hanterades i subversion och Jonas hade rollen som teknisk CM."
+      ]
+    },
+    {
+      "customer": "Tele2",
+      "from": "2003",
+      "to": "2006",
+      "title": "Utveckling och drift av inloggningsplattform",
+      "description": [
+        "Utveckling och drift av inloggningsplattformen för Tele2s internettjänster - t ex ADSL, GPRS och UMTS - på Solaris. Plattformen är byggd på ett egenutvecklat applikationsramverk som använts för ett antal större och mindre samverkande system. Mycket av arbetet har gått ut på vidareutveckling av själva ramverket som är skrivet i C. Även inloggningsdelen av systemet har genomgått en utveckling i takt med ökande krav och förväntningar på plattformen. Denna del är konstruerad kring en egenutvecklad radiusserver. Jonas har jobbat huvudsakligen som utvecklare men även med administration av driftmiljön.",
+        "Källkoden hanterades i subversion och Jonas hade rollen som teknisk CM."
+      ]
+    },
+    {
+      "customer": "Regeringskansliet",
+      "from": "dec 2002",
+      "to": "feb 2003",
+      "title": "Konfigurationshantering",
+      "description": [
+        "Införande av automatiserad konfigurationshantering med hjälp av cfengine och Inits CFE-ramverk."
+      ]
+    },
+    {
+      "customer": "Boxer",
+      "from": "2002",
+      "title": "Systemadministration",
+      "description": [
+        "Teknisk hjälp i samband med flytt av Solarisservrar till ny serverhall och översyn av systemet för automatisk start av tjänster."
+      ]
+    },
+    {
+      "customer": "Sveriges Television",
+      "from": "maj 2002",
+      "title": "Felsökning av DNS",
+      "description": [
+        "Felsökning och åtgärdande av akuta fel i DNS."
+      ]
+    },
+    {
+      "customer": "Byggnet",
+      "from": "maj",
+      "to": "sep 2002",
+      "title": "Utveckling stödfunktioner för webbprojekt",
+      "description": [
+        "Framtagning av releasehanteringssystem. Implementering av upload-funktioner för webbapplikation. Miljö: CVS, Linux, Oracle, Perl, Apache."
+      ]
+    },
+    {
+      "customer": "OKQ8",
+      "from": "okt 2001",
+      "title": "Systemutveckling i Oraclemiljö",
+      "description": [
+        "Implementering av nya funktioner i en mängd olika system med hjälp av Oracle, Perl, Java, Solaris"
+      ]
+    },
+    {
+      "customer": "Spacecoin",
+      "from": "jan",
+      "to": "okt 2001",
+      "title": "Systemadministration och utveckling",
+      "description": [
+        "Spacecoin har utvecklat en betalningstjänst för digitala varor på Internet. Jonas har arbetat som projektledare med design och konstruktion av tjänstens faktureringssystem. Dessutom har han satt upp driftmiljön vilket bland annat innefattat installation av hårdvara, operativsystem och databaser samt design och installation av övervaknings- och backupsystem allt på Solaris."
+      ]
+    },
+    {
+      "customer": "Yesbox",
+      "from": "2000",
+      "title": "Utveckling av webbaserat mailsystem",
+      "description": [
+        "Init har utvecklat ett nytt webbaserat mail- och bonus-system åt Yesbox AB.",
+        "Jonas har arbetat med design och implementering av olika delsystem i projektet som helt är utvecklat på J2EE-platformen. Förutom serverbaserad Java används tekniker som HTML, Javascript, sendmail/procmail. Som databas används Oracle 8i på Solaris."
+      ]
+    },
+    {
+      "customer": "OKQ8",
+      "from": "1999",
+      "title": "Utveckling av betalningssystem",
+      "description": [
+        "Jonas designade och implementerade ett betalningssystem för OK-Q8. Informationen transporteras i XML-format mellan företagen och banken. Systemet utvecklades i Java på SUN-plattform."
+      ]
+    },
+    {
+      "customer": "OKQ8",
+      "from": "1998",
+      "to": "1999",
+      "title": "Vidareutveckling av faktureringssystem",
+      "description": [
+        "Utveckling och underhåll av Kuwait Petroleums faktureringssystem, vilket är uppbyggt runt en Oracledatabas m.h.a. Oracle Forms, Oracle ReportWriter, Pro/C samt en hel del egenutvecklade verktyg. Såväl mål- som utvecklingsmiljö är Unix och som programmeringsspråk används C."
+      ]
+    },
+    {
+      "customer": "Pharmacia & Upjohn",
+      "from": "1997",
+      "to": "1998",
+      "title": "Utveckling av systemadministrationsrutiner",
+      "description": [
+        "Pharmacia & Upjohn har en stor forskningsavdelning i Stockholm som arbetar med att modellera proteiner och försöka få fram verksamma substanser för kommande läkemedel. Till sin hjälp har man ett stort nätverk med ett hundratal arbetsstationer och mycket kraftfulla servrar från Silicon Graphics.",
+        "Jonas har arbetat med att ta fram effektiva verktyg för systemadministration vad gäller nätverk, programvaror, backuphantering och lastbalansering. Han har bland annat planerat och genomfört en omläggning av ett stort tcp/ip-nätverk. ",
+        "Arbetet har utförts i UNIXmiljö med främst IRIX men även Solaris på maskinvara från Silicon Graphics och Sun. Arbetet har inneburit en hel del programmering med CGI-script i Perl och C och UNIX-script."
+      ]
+    },
+    {
+      "customer": "Uppsala Universitet",
+      "from": "1993",
+      "to": "1997 ",
+      "title": "Simulering av molekylrörelser",
+      "description": [
+        "Konstruktion ett antal program för statistisk behandling och grafisk presentation av data från framför allt molekylsimulering. Uppdraget innebar att utveckla olika funktioner för att skapa och optimera indata med interaktiva metoder samt analys och presentation av erhållna simuleringsresultat. Det går även att få fram en stor mängd olika typer av statistik; från medelvärdesbildning till minsta kvadrat-anpassning och korrelationsberäkning.",
+        "Jonas ansvarade för specificering, programmering och test. Programmen utvecklades med C i Interactive Unix miljö och till viss del även på Solaris."
+      ]
+    },
+    {
+      "customer": "Uppsala Universitet",
+      "from": "1992",
+      "title": "Simulering och grafisk presentation",
+      "description": [
+        "Jonas arbetade i ett projekt där man utvecklade ett antal program för simulering och grafisk presentation av prestanda i krafttransistorer. Själva simuleringsmotorn skrevs i Fortran och grafiken sköttes via ett Matlabgränssnitt. Syftet med projektet var att för en forskargrupps räkning vidareutveckla den matematiska modell som användes i simuleringen. Jonas uppgifter var att i samarbete med uppdragsgivaren ta fram en kravspec för systemet och sedan interaktivt implementera och testa. Mål- och utvecklingsmiljö var SunOS."
+      ]
+    }
+  ],
+
+  "teaching": [
+    {
+      "customer": "Init",
+      "from": "1999",
+      "description": [
+        "Jonas tagit fram kursmaterial och varit lärare på ett flertal kurser däribland:",
+        [
+          "Avancerad Unix i praktiken",
+          "Programmering med TCL, TK och Expect",
+          "XML för systemutvecklare",
+          "Versionshantering med Subversion",
+          "Linux/Unix grundkurs",
+          "Linux/Unix fortsättningskurs"
+        ]
+      ]
+    }
+  ],
+
+  "skills": [
+    {
+      "header": "Operativsystem",
+      "description": "Har erfarenhet av de flesta UNIX-varianterna på marknaden, kommersiella som fria, men har framför allt arbetat med Linux, HP-UX, Solaris och Irix."
+    },
+    {
+      "header": "Verktyg",
+      "description": "Jonas har mycket goda kunskaper i shellprogrammering och även att hantera Unix-verktyg som perl, awk, sed, make, RCS m fl. Mycket god vana vid traditionell Unix utvecklingsmiljö."
+    },
+    {
+      "header": "Versionshantering",
+      "description": "Jonas har erfrenhet av ett flertal olika system för versionshantering inklusive CVS, Subversion, Clearcase och Git."
+    },
+    {
+      "header": "Systemadministration",
+      "description": "Jonas har arbetat med rutiner för användarhantering, nätverk och säkerhet. T ex erfarenhet av problem med hårdvara som minne, fläktar, CPU:er etc, installera och konfigurera RAID, konfigurera systemfiler för nätverk, skrivare m m., installera och konfigurera sendmail och procmail, administrera användare och grupper, verifiera nätsäkerhet."
+    },
+    {
+      "header": "Systemprogrammering",
+      "description": "Praktisk erfarenhet av de flesta UNIX-mekanismer. Har konstruerat API:er för att underlätta användningen av systemanropen, t ex sockets, shared memory, signaler, minnesmappade filer etc."
+    },
+    {
+      "header": "Nätverksprogrammering",
+      "description": "Huvudsakligen TCP/IP via sockets men även SUN-RPC och RMI."
+    },
+    {
+      "header": "Programspråk",
+      "description": "God kunskap och erfarenhet av språk som C, Java och Perl. Goda kunskaper i SQL och PL/SQL. Behärskar HTML, HTTP och JavaScript."
+    },
+    {
+      "header": "Metoder",
+      "description": "Kunskaper och erfarenhet av objektorienterad analys och design med bland annat UML."
+    },
+    {
+      "header": "Utvecklingsmiljöer",
+      "description": "Erfarenhet av standardmiljöerna i de olika UNIX-varianterna och dessutom verktyg som t ex: JavaSoft JDK, Symantec Visual Café for Java, Borland Jbuilder, Rational Rose/UML, ClearCase, Subversion, Github, Stash, GNU, Perl och Tcl/Tk"
+    },
+    {
+      "header": "Databaser",
+      "description": "Har främst arbetat med Oracles produkter med Oracle 8-11, Oracle Forms, Oracle ReportWriter, Pro/C och OCI. Även arbetat med olika relationsdatabaser som Oracle, MySQL och Postgres via JDBC."
+    }
+  ],
+
+  "education": [
+    {
+      "header": "Akademisk",
+      "description": [
+        "Civilingenjörsexamen i Teknisk Fysik, inriktning Beräkningsteknik, vid Uppsala Universitet 1992."
+      ]
+    },
+    {
+      "header": "Kurser",
+      "description": [
+        "SELinux Policy Development, Tresys Tehnology",
+        "Perl-programmering, Init",
+        "CDE och X Windows Programmering, Init AB",
+        "C++programmering, Init AB",
+        "Objektorienterad analys och design, Init AB",
+        "Avancerad Programmering i Unix-miljö, Init",
+        "Unified Modeling Language, UML, Init AB",
+        "PL-SQL, Oracle",
+        "Java Enterprise Programmering, Init AB",
+        "Systemutveckling med WebLogic Server, BEA Systems"
+      ]
+    }
+  ],
+  
+  "employment": [
+    {
+      "employer": "Uppsala Universitet",
+      "from": "1993",
+      "to": "1997"
+    },
+    {
+      "role": "Konsult",
+      "employer": "Init AB",
+      "from": "1997",
+      "to": ""
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+%-*-Mode: tex; -*-
+%**start of header
+%**end of header
+
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\marginparsep0pt\marginparwidth0pt\headheight58pt\textheight630pt\parindent0pt\parskip10pt
+
+\usepackage{layout}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[normalem]{ulem}
+\usepackage{color}
+\definecolor{blue}{RGB}{0,20,137}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+%\usepackage{showframe}
+
+\begin{document}
+%\layout{}
+%
+\lhead{\includegraphics[valign=c,height=30pt]{logo.png}}
+\chead{}
+\rhead{{\fontsize{14pt}{14pt}\textbf{Konsultprofil —
+Jonas Linde
+}}}
+%
+\lfoot{{\fontsize{8pt}{9pt}\selectfont{
+      \emph{\textbf{\textcolor{blue}{Init AB}}\\
+        Engelbrektsgatan 7, Box 5618\\
+        114 86 Stockholm, Sweden\\
+        Telefon: 08 - 407 01 00\\
+        E-post: info@init.se\\
+        Web: www.init.se\\}
+}}}
+\cfoot{{\fontsize{8pt}{9pt}\selectfont}}
+\rfoot{{\raisebox{-45pt}{\fontsize{8pt}{9pt}\selectfont Sidan \thepage(\pageref{LastPage})}}}
+%
+\begin{minipage}[t]{10cm}
+  \parskip 6pt
+  %\raggedright
+  {\fontsize{16pt}{24pt}\selectfont\textbf{\emph{\uline{\textcolor{blue}{Jonas Linde}}}}}
+
+  \emph{Mycket erfaren systemadministratör och utvecklare med gedigen
+    kunskap om systemadministration och systemutveckling i Unixmiljö
+    med Perl, C, Java och relationsdatabaser.}
+
+  \emph{Jonas har arbetat med de flesta aspekter av systemadministration i Unix- och Linuxmiljö.}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[t]{5.25cm}
+  \includegraphics[valign=t,width=5.25cm]{jonas_linde.jpg}
+  %\raggedright
+   Civilingenjörsexamen i
+   teknisk fysik och beräkningsteknik vid
+   Uppsala Universitet 1992.
+\end{minipage}
+
+\begin{minipage}[t]{7.5cm}
+  \parskip 6pt
+  %\raggedright
+  {\fontsize{16pt}{24pt}\selectfont\textbf{\emph{\uline{\textcolor{blue}{Vem är Jonas?}}}}}
+
+  Jonas är lösningsorienterad, analytisk och klarsynt. Han slår ofta
+  huvudet på spiken. Han är prestigelös men har samtidigt höga
+  kvalitetskrav. Som arbetskamrat är han hjälpsam och humoristisk.
+
+  Fritiden ägnar Jonas åt på tok för lite friluftsliv.
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[t]{8.25cm}
+  \parskip 6pt
+  \raggedright
+  {\fontsize{16pt}{24pt}\selectfont\textbf{\emph{\uline{\textcolor{blue}{Exempel på}}}}}
+
+  {\fontsize{12pt}{14pt}\selectfont\textbf{Uppdrag}}
+  \vspace{-12pt}
+  \begin{itemize}
+    \item Verktygsutveckling i Unixmiljöer
+    \item Systemadministration i Linux och Unix
+    \item Förbättring av system för Continuous Integration
+    \item Byggnet, Utveckling av releasehanteringssystem
+  \end{itemize}
+  \vspace{-12pt}
+  {\fontsize{12pt}{14pt}\selectfont\textbf{Roller}}
+  \vspace{-12pt}
+  \begin{itemize}
+    \item Systemadministratör i Unix och Linux
+    \item Systemutvecklare i Unix och Linux
+    \item Teamledare med fokus på DevOps
+    \item Lärare och mentor
+  \end{itemize}
+  \vspace{-12pt}
+  {\fontsize{12pt}{14pt}\selectfont\textbf{Kunskaper}}
+  \vspace{-12pt}
+  \begin{itemize}
+     \item Unix, Solaris, Linux, Irix
+     \item Oracle, MySQL och PostgreSQL
+     \item Java, C++, C, Perl
+     \item Git, Chef, Cfengine, WMvare
+  \end{itemize}
+\end{minipage}
+
+{\fontsize{16pt}{24pt}\selectfont\textbf{\emph{\uline{\textcolor{blue}{Uppdrag}}}}}
+\nopagebreak
+
+\begin{minipage}[t]{5.5cm}
+  {\fontsize{12pt}{14pt}\selectfont\textbf{Skatteverket}}
+  
+  2009 – 2012
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[t]{9.8cm}
+Skatteverket använder CFE för att hantera installation av programpaket
+på sina servrar samt i viss utsträckning för konfigurationshantering.
+Verktyget har fortlöpande anpassats till förändrade behov. Som en del
+av förvaltningen av Skatteverkets generella unixtillägg (SGUT) har
+Jonas med hjälp ingående kännedom om CFE särskilt bidragit med
+förbättring av CFE både när det gäller verktyget som sådant och när
+det gäller Skatteverkets användnings av det.
+\end{minipage}
+
+\end{document}

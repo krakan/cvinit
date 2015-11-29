@@ -1,0 +1,28 @@
+A4 / marginaler 2.54cm
+
+JPG eller PNG 200x300 bildpunkter 96 dpi
+
+Header Arial 16 bold italic underline
+Header1 Arial 16 bold italic underline
+
+Footer "Init AB" Arial 8 bold italic
+Footer Arial 8 italic
+Footer "Sidan ..." Arial 8
+
+Ingress Arial 12 italic
+
+Vanlig text Arial 11
+
+Rubrik2 Arial 12 bold
+Rubrik3 Arial 12 italic
+
+blue RGB 0 20 137
+
+[master (root-commit) 88bfa78] working set
+ 6 files changed, 616 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 KonsultprofilJonasLindeInitAB.json
+ create mode 100644 KonsultprofilJonasLindeInitAB_div.html
+ create mode 100644 KonsultprofilJonasLindeInitAB_manual.tex
+ create mode 100644 jonas_linde.jpg
+ create mode 100644 logo.png
