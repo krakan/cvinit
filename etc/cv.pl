@@ -54,60 +54,53 @@ sub header3(Str $header) {
 }
 
 sub head(Str $name) {
-    say q:to/NAME/,qq:to/CONT/,q:to/DONE/;
-    \documentclass[11pt,a4paper,oneside]{article}
-    \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
-    \marginparsep0pt\marginparwidth0pt\headheight58pt\textheight630pt\parindent0pt\parskip10pt
-    
-    \usepackage{layout}
-    \usepackage[utf8]{inputenc}
-    \usepackage{helvet}
-    \renewcommand{\familydefault}{\sfdefault}
-    \usepackage{color}
-    \definecolor{blue}{RGB}{0,20,137}
-    \usepackage{fancyhdr}
-    \pagestyle{fancy}
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-    \usepackage{lastpage}
-    \usepackage{graphicx}
-    \usepackage[export]{adjustbox}
-
-    \usepackage[normalem]{ulem}
-    \newcommand\buline{\bgroup\markoverwith {\textcolor{blue}{\rule[-1.7pt]{1pt}{0.7pt}}}\ULon}
-
-    \let\olditemize\itemize
-    \renewcommand{\itemize}{
-      \olditemize
-      \setlength{\itemsep}{1pt}
-      \setlength{\parskip}{0pt}
-      \setlength{\parsep}{0pt}
-    }
-    
-    %\usepackage{showframe}
-    
-    \begin{document}
-    %
-    \lhead{\includegraphics[valign=c,height=30pt]{logo.png}}
-    \chead{}
-    \rhead{{\fontsize{14pt}{14pt}\textbf{Konsultprofil — 
-    NAME
-    $name
-    CONT
-    }}}
-    %
-    \lfoot{{\fontsize{8pt}{9pt}\selectfont{
-          \emph{\textbf{\textcolor{blue}{Init AB}}\\\\
-            Engelbrektsgatan 7, Box 5618\\\\
-            114 86 Stockholm, Sweden\\\\
-            Telefon: 08 - 407 01 00\\\\
-            E-post: info@init.se\\\\
-            Web: www.init.se\\\\}
-    }}}
-    \cfoot{{\fontsize{8pt}{9pt}\selectfont}}
-    \rfoot{{\raisebox{-45pt}{\fontsize{8pt}{9pt}\selectfont Sidan \thepage(\pageref{LastPage})}}}
-    DONE
-
+    say '\documentclass[11pt,a4paper,oneside]{article}';
+    say '\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}';
+    say '\marginparsep0pt\marginparwidth0pt\headheight58pt\textheight630pt\parindent0pt\parskip10pt';
+    say '';
+    say '\usepackage{layout}';
+    say '\usepackage[utf8]{inputenc}';
+    say '\usepackage{helvet}';
+    say '\renewcommand{\familydefault}{\sfdefault}';
+    say '\usepackage{color}';
+    say '\definecolor{blue}{RGB}{0,20,137}';
+    say '\usepackage{fancyhdr}';
+    say '\pagestyle{fancy}';
+    say '\renewcommand{\headrulewidth}{0pt}';
+    say '\renewcommand{\footrulewidth}{0pt}';
+    say '\usepackage{lastpage}';
+    say '\usepackage{graphicx}';
+    say '\usepackage[export]{adjustbox}';
+    say '';
+    say '\usepackage[normalem]{ulem}';
+    say '\newcommand\buline{\bgroup\markoverwith {\textcolor{blue}{\rule[-1.7pt]{1pt}{0.7pt}}}\ULon}';
+    say '';
+    say '\let\olditemize\itemize';
+    say '\renewcommand{\itemize}{';
+    say '  \olditemize';
+    say '  \setlength{\itemsep}{1pt}';
+    say '  \setlength{\parskip}{0pt}';
+    say '  \setlength{\parsep}{0pt}';
+    say '}';
+    say '';
+    say '%\usepackage{showframe}';
+    say '';
+    say '\begin{document}';
+    say '%';
+    say '\lhead{\includegraphics[valign=c,height=30pt]{logo.png}}';
+    say '\chead{}';
+    say '\rhead{{\fontsize{14pt}{14pt}\textbf{Konsultprofil — '~$name~'}}}';
+    say '%';
+    say '\lfoot{{\fontsize{8pt}{9pt}\selectfont{';
+    say '      \emph{\textbf{\textcolor{blue}{Init AB}}\\\\';
+    say '        Engelbrektsgatan 7, Box 5618\\\\';
+    say '        114 86 Stockholm, Sweden\\\\';
+    say '        Telefon: 08 - 407 01 00\\\\';
+    say '        E-post: info@init.se\\\\';
+    say '        Web: www.init.se\\\\}';
+    say '}}}';
+    say '\cfoot{{\fontsize{8pt}{9pt}\selectfont}}';
+    say '\rfoot{{\raisebox{-45pt}{\fontsize{8pt}{9pt}\selectfont Sidan \thepage(\pageref{LastPage})}}}';
 }
 
 sub ingress($name, $summary, $image, $caption) {
