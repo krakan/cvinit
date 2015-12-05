@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-# -*- p6 -*-
+# -*- perl6 -*-
 
 use v6;
 use JSON::Fast;
