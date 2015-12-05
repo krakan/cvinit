@@ -7,6 +7,7 @@ use JSON::Fast;
 my $ragged;
 
 sub MAIN(Str $json_file, Bool :$stdout = False, Bool :$view = False, Bool :$ragged_right = False) {
+    $ragged = $ragged_right;
     my $base = $json_file;
     $base ~~ s/\.json$//;
     my $texfile = "$base.tex";
@@ -16,16 +17,16 @@ sub MAIN(Str $json_file, Bool :$stdout = False, Bool :$view = False, Bool :$ragg
     }
 
     my $json = from-json slurp $json_file;
-    $ragged = $ragged_right;
-    &head("$json<firstname> $json<lastname>");
-    &ingress($json);
-    &presentation($json);
-    &assignments($json, 'assignments', 'Uppdrag');
-    &assignments($json, 'teaching', 'Utbildningsuppdrag');
-    &knowledge($json, 'skills', 'Kunskaper');
-    &knowledge($json, 'education', 'Utbildning');
-    &employment($json);
-    &foot();
+
+    head("$json<firstname> $json<lastname>");
+    ingress("$json<firstname> $json<lastname>", $json<summary>, $json<image>, $json<caption>);
+    presentation($json<firstname>, $json<presentation>, $json<examples>);
+    assignments('Uppdrag', $json<assignments>);
+    assignments('Utbildningsuppdrag', $json<teaching>);
+    knowledge('Kunskaper', $json<skills>);
+    knowledge('Utbildning', $json<education>);
+    employment($json<employment>);
+    foot();
 
     unless ($stdout) {
         run 'pdflatex', $texfile;
@@ -110,21 +111,21 @@ sub head(Str $name) {
 
 }
 
-sub ingress($json) {
+sub ingress($name, $summary, $image, $caption) {
     say '\begin{minipage}[t]{10cm}';
-    &header("$json<firstname> $json<lastname>");
-    for @($json<summary>) -> $text {
+    &header($name);
+    for @($summary) -> $text {
         say '';
         say '  \emph{'~$text~'}';
     }
     say '\end{minipage}';
     say '\hspace{0.5cm}';
     say '\begin{minipage}[t]{5.25cm}';
-    say '\includegraphics[valign=t,width=5.25cm]{'~$json<image>~'}';
+    say '\includegraphics[valign=t,width=5.25cm]{'~$image~'}';
     say '\raggedright' if $ragged;
     say '  \parskip 6pt';
     say '';
-    for @($json<caption>) -> $text {
+    for @($caption) -> $text {
         say $text;
     }    
     say '\end{minipage}';
@@ -132,12 +133,12 @@ sub ingress($json) {
     say '';
 }
 
-sub presentation($json) {
+sub presentation($name, $presentation, $examples) {
     say '\begin{minipage}[t]{7.5cm}';
     say '  \parskip 6pt';
     say '  \raggedright' if $ragged;
-    &header("Vem är $json<firstname>?");
-    for @($json<presentation>) -> $text {
+    &header("Vem är $name?");
+    for @($presentation) -> $text {
         say '';
         say "  $text";
     }
@@ -148,7 +149,7 @@ sub presentation($json) {
     say '  \raggedright';
     &header("Exempel på");
     say '';
-    for @($json<examples>) -> $example {
+    for @($examples) -> $example {
         &header2($example<header>);
         say '  \vspace{-12pt}';
         say '  \begin{itemize}';
@@ -162,9 +163,9 @@ sub presentation($json) {
     say '';
 }
 
-sub assignments($json, $block, $header) {
+sub assignments($header, $block) {
     &header("$header");
-    for @($json{$block}) -> $description {
+    for @($block) -> $description {
         say '';
         say '\begin{minipage}[t]{5.5cm}';
         &header2($description<customer>);
@@ -198,9 +199,9 @@ sub assignments($json, $block, $header) {
     }
 }
 
-sub knowledge($json, $block, $header) {
+sub knowledge($header, $block) {
     &header("$header");
-    for @($json{$block}) -> $group {
+    for @($block) -> $group {
         say '';
         say '\begin{minipage}[t]{5.5cm}';
         &header2($group<header>);
@@ -226,12 +227,12 @@ sub knowledge($json, $block, $header) {
     }
 }
 
-sub employment($json) {
+sub employment($employment) {
     say '';
     &header("Anställningar");
     say '\vspace{-12pt}';
     say '\begin{itemize}';
-    for @($json<employment>) -> $description {
+    for @($employment) -> $description {
         my $out = '  \item ';
         $out ~= $description<role> ~ ', ' if $description<role>;
         $out ~= $description<employer> ~ ', ' if $description<employer>;
