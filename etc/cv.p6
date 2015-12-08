@@ -10,18 +10,18 @@ my %fmt = (
         top => 2.54,
         bottom => 2.86,
         skip => 6,
+        gutter => 0.5,
     },
     font => {
         family => 'helvet',
         size => 11,
+        blue => '0,20,137',
     },
     logo => {
         image => 'logo.png',
         height => 58,
         imgheight => 29, # half
     },
-    blue => '0,20,137',
-    gutter => 0.5,
     header0 => {
         size => 14,
         bold => True,
@@ -141,9 +141,9 @@ sub fontify (Str $type, Str $string is copy) {
     $string = '\textcolor{blue}{'~$string~'}' if %fmt{$type}<blue>;
     if %fmt{$type}<underline> {
         if %fmt{$type}<blue> {
-            $string = '\buline{'~$string~'}'
+            $string = '\bluline{'~$string~'}'
         } else {
-            $string = '\uline{'~$string~'}'
+            $string = '\bline{'~$string~'}'
         }
     }
     $string = '\emph{'~$string~'}' if %fmt{$type}<italic>;
@@ -183,7 +183,7 @@ sub head(Str $name) {
     say '\usepackage{'~%fmt<font><family>~'}';
     say '\renewcommand{\familydefault}{\sfdefault}';
     say '\usepackage{color}';
-    say '\definecolor{blue}{RGB}{'~%fmt<blue>~'}';
+    say '\definecolor{blue}{RGB}{'~%fmt<font><blue>~'}';
     say '\usepackage{fancyhdr}';
     say '\pagestyle{fancy}';
     say '\renewcommand{\headrulewidth}{0pt}';
@@ -193,7 +193,8 @@ sub head(Str $name) {
     say '\usepackage[export]{adjustbox}';
     say '';
     say '\usepackage[normalem]{ulem}';
-    say '\newcommand\buline{\bgroup\markoverwith {\textcolor{blue}{\rule[-1.7pt]{1pt}{0.7pt}}}\ULon}';
+    say '\newcommand\bluline{\bgroup\markoverwith {\textcolor{blue}{\rule[-1.7pt]{1pt}{0.7pt}}}\ULon}';
+    say '\newcommand\bline{\bgroup\markoverwith {\textcolor{black}{\rule[-1.7pt]{1pt}{0.7pt}}}\ULon}';
     say '';
     say '\let\olditemize\itemize';
     say '\renewcommand{\itemize}{';
@@ -225,7 +226,7 @@ sub head(Str $name) {
 
 sub ingress($name, $summary, $image, $caption) {
     my $left = %fmt<ingress><halfwidth>;
-    my $right = %fmt<page><width>-%fmt<gutter>-$left;
+    my $right = %fmt<page><width>-%fmt<page><gutter>-$left;
     say '\begin{minipage}[t]{'~$left~'cm}';
     &header1($name);
     say '  \raggedright' if %fmt<ingress><ragged>;
@@ -234,7 +235,7 @@ sub ingress($name, $summary, $image, $caption) {
         say '  \emph{'~$text~'}';
     }
     say '\end{minipage}';
-    say '\hspace{'~%fmt<gutter>~'cm}';
+    say '\hspace{'~%fmt<page><gutter>~'cm}';
     say '\begin{minipage}[t]{'~$right~'cm}';
     say '\includegraphics[valign=t,width='~$right~'cm]{'~$image~'}';
     say '  \parskip '~%fmt<page><skip>~'pt';
@@ -249,7 +250,7 @@ sub ingress($name, $summary, $image, $caption) {
 
 sub presentation($name, $presentation, $examples) {
     my $left = %fmt<presentation><halfwidth>;
-    my $right = %fmt<page><width>-%fmt<gutter>-$left;
+    my $right = %fmt<page><width>-%fmt<page><gutter>-$left;
     say '\begin{minipage}[t]{'~$left~'cm}';
     say '  \parskip '~%fmt<page><skip>~'pt';
     say '  \raggedright' if %fmt<presentation><ragged>;
@@ -259,7 +260,7 @@ sub presentation($name, $presentation, $examples) {
         say "  $text";
     }
     say '\end{minipage}';
-    say '\hspace{'~%fmt<gutter>~'cm}';
+    say '\hspace{'~%fmt<page><gutter>~'cm}';
     say '\begin{minipage}[t]{'~$right~'cm}';
     say '  \parskip '~%fmt<page><skip>~'pt';
     say '  \raggedright';
@@ -281,7 +282,7 @@ sub presentation($name, $presentation, $examples) {
 
 sub assignments($header, $block) {
     my $left = %fmt<assignments><halfwidth>;
-    my $right = %fmt<page><width>-%fmt<gutter>-$left;
+    my $right = %fmt<page><width>-%fmt<page><gutter>-$left;
     &header1("$header");
     for @($block) -> $description {
         say '';
@@ -292,7 +293,7 @@ sub assignments($header, $block) {
         print " – $description<to>" if defined $description<to>;
         say '';
         say '\end{minipage}';
-        say '\hspace{'~%fmt<gutter>~'cm}';
+        say '\hspace{'~%fmt<page><gutter>~'cm}';
         say '\begin{minipage}[t]{'~$right~'cm}';
         say '  \parskip '~%fmt<page><skip>~'pt';
         say '  \raggedright' if %fmt<assignments><ragged>;;
@@ -320,14 +321,14 @@ sub assignments($header, $block) {
 
 sub knowledge($header, $block) {
     my $left = %fmt<knowledge><halfwidth>;
-    my $right = %fmt<page><width>-%fmt<gutter>-$left;
+    my $right = %fmt<page><width>-%fmt<page><gutter>-$left;
     &header1("$header");
     for @($block) -> $group {
         say '';
         say '\begin{minipage}[t]{'~$left~'cm}';
         &header2($group<header>);
         say '\end{minipage}';
-        say '\hspace{'~%fmt<gutter>~'cm}';
+        say '\hspace{'~%fmt<page><gutter>~'cm}';
         say '\begin{minipage}[t]{'~$right~'cm}';
         say '  \raggedright' if %fmt<knowledge><ragged>;;
         my $description = $group<description>;
