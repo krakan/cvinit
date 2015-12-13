@@ -331,17 +331,18 @@ sub knowledge($header, $block) {
         say '\hspace{'~%fmt<page><gutter>~'cm}';
         say '\begin{minipage}[t]{'~$right~'cm}';
         say '  \raggedright' if %fmt<knowledge><ragged>;;
-        my $description = $group<description>;
-        if $description.WHAT === Array {
+        if $group<descriptions> {
+            my $descriptions = $group<descriptions>;
             say '  \vspace{-12pt}';
             say '  \begin{itemize}';
-            for @($description) -> $item {
+            for @($descriptions) -> $item {
                 $item ~~ s:g/\&/\\&/;
                 say '    \item ' ~ $item;
             }
             say '  \end{itemize}';
             say '  \vspace{-12pt}';
         } else {
+            my $description = $group<description>;
             "$description" ~~ s:g/\&/\\&/;
             say "  $description";
         }

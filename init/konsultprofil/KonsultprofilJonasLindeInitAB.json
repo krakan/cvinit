@@ -306,13 +306,13 @@
   "education": [
     {
       "header": "Akademisk",
-      "description": [
+      "descriptions": [
         "Civilingenjörsexamen i Teknisk Fysik, inriktning Beräkningsteknik, vid Uppsala Universitet 1992."
       ]
     },
     {
       "header": "Kurser",
-      "description": [
+      "descriptions": [
         "SELinux Policy Development, Tresys Tehnology",
         "Perl-programmering, Init",
         "CDE och X Windows Programmering, Init AB",
