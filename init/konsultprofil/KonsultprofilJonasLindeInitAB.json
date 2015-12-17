@@ -2,11 +2,7 @@
   "firstname": "Jonas",
   "lastname": "Linde",
   "image": "jonas_linde.jpg",
-  "caption": [
-    "Civilingenjörsexamen i",
-    "teknisk fysik och beräkningsteknik vid",
-    "Uppsala Universitet 1992."
-  ],
+  "caption": "Civilingenjörsexamen i teknisk fysik och beräkningsteknik vid Uppsala Universitet 1992.",
   "summary": [
     "Mycket erfaren systemadministratör och utvecklare med gedigen kunskap om systemadministration och systemutveckling i Unixmiljö med Perl, C, Java och relationsdatabaser.",
     "Jonas har arbetat med de flesta aspekter av systemadministration i Unix- och Linuxmiljö."
