@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+/* style sheet for Init AB resumés */
+
+body {
+  background-color: white;
+  font-size: 10pt;
+  font-family: Sans;
+  width: 210mm;
+}
+
+h1, h1 input {
+  font-size: 16pt;
+  font-weight: bold;
+  text-decoration: underline;            
+  color: #001489;
+}
+
+div.logo img {
+  height: 58px;
+}
+
+h2, h2 input {
+  font-size: 12pt;
+  font-weight: bold;       
+}
+
+h3, h3 input {
+  font-size: 12pt;
+  font-style: italic;
+  font-weight: normal;       
+}
+
+h2.header {
+  display: inline-block;
+  width: 190mm;
+  text-align: right;
+}
+
+form.browse {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+
+textarea.summary {
+  font-style: italic;
+}
+
+textarea {
+  font-size: 10pt;
+  width: 100%;                 
+}
+
+input, select {
+  font-size: 10pt;
+}
+
+section {
+  border-width: 1px;
+  border-style: dotted;
+}
+
+div.left {
+  float: left;
+  clear: left;
+  width: 100mm;
+  border-width: 1px;
+  overflow: auto;
+}
+
+div.right {
+  margin-left: 105mm;
+  width: 100mm;
+  border-width: 1px;
+}
