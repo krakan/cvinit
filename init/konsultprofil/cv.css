@@ -61,7 +61,7 @@ section {
   border-style: dotted;
 }
 
-div.left {
+div.left0 {
   float: left;
   clear: left;
   width: 100mm;
@@ -69,8 +69,27 @@ div.left {
   overflow: auto;
 }
 
-div.right {
+div.right0 {
   margin-left: 105mm;
   width: 100mm;
   border-width: 1px;
+}
+
+div.left1 {
+  float: left;
+  clear: left;
+  width: 80mm;
+  border-width: 1px;
+  overflow: auto;
+}
+
+div.right1 {
+  margin-left: 85mm;
+  width: 120mm;
+  border-width: 1px;
+}
+
+ul {
+  list-style-position: inside;
+  padding-left: 0px;
 }
