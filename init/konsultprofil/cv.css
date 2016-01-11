@@ -62,30 +62,29 @@ section {
 }
 
 div.left0 {
-  float: left;
-  clear: left;
-  width: 100mm;
+  display: inline-block;
+  vertical-align: top;
   border-width: 1px;
   overflow: auto;
 }
 
 div.right0 {
-  margin-left: 105mm;
+  display: inline-block;
+  vertical-align: top;
   width: 100mm;
   border-width: 1px;
 }
 
 div.left1 {
-  float: left;
-  clear: left;
-  width: 80mm;
+  display: inline-block;
+  vertical-align: top;
   border-width: 1px;
   overflow: auto;
 }
 
 div.right1 {
-  margin-left: 85mm;
-  width: 120mm;
+  display: inline-block;
+  vertical-align: top;
   border-width: 1px;
 }
 
