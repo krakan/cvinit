@@ -2,6 +2,7 @@
 use v6;
 use HTML::Template;
 use JSON::Fast;
+use URI::Escape;
 
 # these are authorized to edit all files
 my @admins = < jonas wallen joakim anders cmk peggy >;
@@ -14,63 +15,40 @@ sub MAIN(
 
     my $data = slurp if %*ENV<CONTENT_LENGTH>;
     say "<pre>";
-    #for %*ENV.kv -> $k, $v {
-    #    say "$k: $v";
-    #}
     for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
         say "$key: %*ENV{$key}" if %*ENV{$key};
     }
 
-    my (%data, $group);
+    my (%data, %seen);
     if $data {
         my @data = $data.split('&');
         for @data -> $item {
             my ($key, $val) = $item.split("=");
+            $val = uri-unescape($val);
             given $key {
-                when "customer" {
-                    $group = 'assignments';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                when /^^(.+)\.(.+)\.$$/ {
+                    my $group = $0;
+                    my $subkey = $1;
+                    if $val {
+                        %data{$group}[*-1]{$subkey} //= [];
+                        push @(%data{$group}[*-1]{$subkey}), $val;
+                    }
                 }
-                when "principal" {
-                    $group = 'teaching';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
-                }
-                when "skill" {
-                    $group = 'skills';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
-                }
-                when "education" {
-                    $group = 'education';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
-                }
-                when "employer" {
-                    $group = 'employment';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
-                }
-                when "education" {
-                    $group = 'employment';
-                    %data{$group} //= [];
-                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                when /^^(.+)\.(.+)$$/ {
+                    my $group = $0;
+                    my $subkey = $1;
+                    %data{$group} //= [{},];
+                    if (%seen{$key}) {
+                        push @(%data{$group}), {} if %data{$group}[*-1].values;
+                        %seen = ();
+                    }
+                    %data{$group}[*-1]{$subkey} = $val if $val;
                 }
                 default {
-                    say "VFN: $key: $val";
+                    %data{$key} = $val if $val;
                 }
             }
-            $val ~~ s:g[ '%' (<:hexdigit> ** 2) ] = chr :16(~$0);
-            $val ~~ s:g/\+/ /;
-            #$val = $val.convert('UTF-8');
-            if $val {
-                if $group {
-                    %data{$group}[*-1]{$key} = $val;
-                } else {
-                    %data{$key} = $val;
-                }
-            }
+            %seen{$key}++;
         }
     }
     say to-json %data;
