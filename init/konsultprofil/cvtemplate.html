@@ -13,8 +13,8 @@
       <h2 class="header">Konsultprofil – <TMPL_VAR firstname> <TMPL_VAR lastname></h2></div><TMPL_IF browse>
       <form class="browse" id="browse" method="post" action="cvweb.p6">
         <div>
-          <select name="file"><TMPL_LOOP name_list>
-            <option value="<TMPL_VAR file>"><TMPL_VAR name></option></TMPL_LOOP>
+          <select name="uid"><TMPL_LOOP name_list>
+            <option value="<TMPL_VAR uid>"><TMPL_VAR name></option></TMPL_LOOP>
           </select>
           <input type="submit" value="Byt CV" />
         </div>
