@@ -1,4 +1,4 @@
-#!/usr/bin/env perl6
+#!/home/jonas/git/rakudobrew/bin/perl6
 use v6;
 use HTML::Template;
 use JSON::Fast;
@@ -10,8 +10,74 @@ sub MAIN(
     Bool :$show-json = False,
     Str :$gitdir = '/home/jonas/init/konsultprofil',
 ) {
+    say "Content-Type: text/html\n";
+
+    my $data = slurp if %*ENV<CONTENT_LENGTH>;
+    say "<pre>";
+    #for %*ENV.kv -> $k, $v {
+    #    say "$k: $v";
+    #}
+    for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
+        say "$key: %*ENV{$key}" if %*ENV{$key};
+    }
+
+    my (%data, $group);
+    if $data {
+        my @data = $data.split('&');
+        for @data -> $item {
+            my ($key, $val) = $item.split("=");
+            given $key {
+                when "customer" {
+                    $group = 'assignments';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                when "principal" {
+                    $group = 'teaching';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                when "skill" {
+                    $group = 'skills';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                when "education" {
+                    $group = 'education';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                when "employer" {
+                    $group = 'employment';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                when "education" {
+                    $group = 'employment';
+                    %data{$group} //= [];
+                    push @(%data{$group}), {} if not %data{$group} or %data{$group}[0].keys;
+                }
+                default {
+                    say "VFN: $key: $val";
+                }
+            }
+            $val ~~ s:g[ '%' (<:hexdigit> ** 2) ] = chr :16(~$0);
+            $val ~~ s:g/\+/ /;
+            #$val = $val.convert('UTF-8');
+            if $val {
+                if $group {
+                    %data{$group}[*-1]{$key} = $val;
+                } else {
+                    %data{$key} = $val;
+                }
+            }
+        }
+    }
+    say to-json %data;
+    say "</pre>";
+  
     # figure out desired user name
-    my $user = %*ENV<REMOTE_USER>;
+    my $user = %*ENV<REMOTE_USER> // 'jonas';
 
     # read the json file
     my $json;
