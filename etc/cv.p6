@@ -287,11 +287,7 @@ sub assignments($header, $block) {
     for @($block) -> $description {
         say '';
         say '\begin{minipage}[t]{'~$left~'cm}';
-        if $description<customer> {
-            &header2($description<customer>);
-        } else {
-            &header2($description<principal>);
-        }
+        &header2($description<customer>);
         say '';
         print "  $description<from>" if $description<from>;
         print " – $description<to>" if defined $description<to>;
