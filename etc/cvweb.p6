@@ -9,15 +9,12 @@ my @admins = < jonas wallen joakim anders cmk peggy >;
 
 sub MAIN(
     Bool :$show-json = False,
+    Bool :$debug = False,
     Str :$gitdir = '/home/jonas/init/konsultprofil',
 ) {
     say "Content-Type: text/html\n";
 
     my $data = slurp if %*ENV<CONTENT_LENGTH>;
-    say "<pre>";
-    for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
-        say "$key: %*ENV{$key}" if %*ENV{$key};
-    }
 
     my (%data, %seen);
     if $data {
@@ -54,11 +51,10 @@ sub MAIN(
             %seen{$key}++;
         }
     }
-    say to-json %data;
-    say "</pre>";
   
     # figure out desired user name
-    my $user = %*ENV<REMOTE_USER> // 'jonas';
+    my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
+    my $user = %data<uid> // $loggedin;
 
     # read the json file
     my $json;
@@ -99,14 +95,21 @@ sub MAIN(
     $json<uid> = $user;
 
     # add alternative jsons if user is admin
-    $json<browse> = so $user eq @admins.any;
+    $json<browse> = so $loggedin eq @admins.any;
     if ($json<browse>) {
-        my @list;
+        my @list = [
+            {
+                uid => $user,
+                name => "$json<firstname> $json<lastname>",
+            },
+        ];
         for dir(path => $gitdir, test => /'.json'$/) -> $file {
             my $data = from-json slurp $file;
             if $data<firstname> {
                 my $name = "$data<firstname> $data<lastname>";
-                push @list, {file => $file.basename, name => $name};
+                my $uid = $file.basename;
+                $uid ~~ s/\.json$//;
+                push @list, {uid => $uid, name => $name} unless $uid eq $user;
             }
         }
         $json<name_list> = @list;
@@ -140,6 +143,16 @@ sub MAIN(
     my $template = HTML::Template.from_file('cvtemplate.html');
     $template.with_params(%$json);
     print $template.output;
+
+    # debug output
+    if $debug {
+        say "<pre>";
+        for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
+            say "$key: %*ENV{$key}" if %*ENV{$key};
+        }
+        say to-json %data;
+        say "</pre>";
+    }
 }
 
 # flatten array of strings for form output
