@@ -20,6 +20,10 @@ div.logo img {
   height: 58px;
 }
 
+img.portrait {
+  max-height: 300px;
+}
+
 h2, h2 input {
   font-size: 12pt;
   font-weight: bold;       
