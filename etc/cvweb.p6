@@ -25,8 +25,11 @@ sub MAIN(
         for @data -> $item {
             my ($key, $val) = $item.split("=");
             $val = uri-unescape($val);
+            if $key ~~ /caption|presentation|summary|assignments.description|teaching.description/ {
+                $val = inflate $val if $val;
+            }
             given $key {
-                when /^^(.+)\.(.+)\.$$/ {
+                when /^(.+)\.(.+)\.$/ {
                     my $group = $0;
                     my $subkey = $1;
                     if $val {
@@ -34,7 +37,7 @@ sub MAIN(
                         push @(%data{$group}[*-1]{$subkey}), $val;
                     }
                 }
-                when /^^(.+)\.(.+)$$/ {
+                when /^(.+)\.(.+)$/ {
                     my $group = $0;
                     my $subkey = $1;
                     %data{$group} //= [{},];
@@ -139,6 +142,7 @@ sub MAIN(
     print $template.output;
 }
 
+# flatten array of strings for form output
 sub flatten ($ref) {
     my @return;
     for @$ref -> $value {
@@ -154,4 +158,16 @@ sub flatten ($ref) {
     }
 
     join "\n\n", @return;
+}
+
+# build array of strings from form input
+sub inflate ($str) {
+    my @return = split /\n\n/, $str;
+    for @return -> $item is rw {
+        if $item ~~ /\n/ {
+            $item ~~ s:g/^^\s\*\s//;
+            $item = split /\n/, $item;
+        }
+    }
+    return @return;
 }
