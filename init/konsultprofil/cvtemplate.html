@@ -4,12 +4,12 @@
     <title>Konsultprofil</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rev="made" href="mailto:jonas@init.se"/>
-    <link rel="stylesheet" href="cv.css" />
+    <link rel="stylesheet" href="/cv.css" />
 </head>
 
   <body>
     <section>
-      <div class="logo"><img src="logo.png" alt="logo"/>
+      <div class="logo"><img src="/logo.png" alt="logo"/>
       <h2 class="header">Konsultprofil – <TMPL_VAR firstname> <TMPL_VAR lastname></h2></div><TMPL_IF browse>
       <form class="browse" id="browse" method="post" action="cvweb.p6">
         <div>
@@ -29,7 +29,7 @@
           <textarea class="summary" name="summary" cols="45" rows="8"><TMPL_VAR summary></textarea>
         </div>
         <div class="right0">
-          <img width="200" height="300" alt="<TMPL_VAR firstname> <TMPL_VAR lastname>" src="<TMPL_VAR image>"/>
+          <img class="portrait" alt="<TMPL_VAR firstname> <TMPL_VAR lastname>" src="/<TMPL_VAR image>"/>
           <div>Ny bild: <input type="file" name="image"/></div>
           <textarea name="caption" cols="30" rows="3"><TMPL_VAR caption></textarea>
         </div>
@@ -43,10 +43,10 @@
         <div class="right0">
           <h1>Exempel på</h1>
           <TMPL_LOOP examples>
-          <h2><input name="header" type="text" size="20" value="<TMPL_VAR header>"/></h2>
+          <h2><input name="examples.header" type="text" size="20" value="<TMPL_VAR header>"/></h2>
           <ul><TMPL_LOOP descriptions>
-            <li><input type="text" name="" size="40" value="<TMPL_VAR text>"/></li></TMPL_LOOP>
-            <li><input type="newtext" name="" size="40"/></li>
+            <li><input type="text" name="examples.descriptions." size="40" value="<TMPL_VAR text>"/></li></TMPL_LOOP>
+            <li><input type="text" name="examples.descriptions." size="40"/></li>
           </ul>
           </TMPL_LOOP>
         </div>
@@ -55,88 +55,88 @@
       <h1>Uppdrag</h1>
       <section>
         <div class="left1">
-          <h2><input name="" type="text" size="23"/></h2>
-          <input name="" type="text" size="8"/> –
-          <input name="" type="text" size="8"/>
+          <h2><input name="assignments.customer" type="text" size="23"/></h2>
+          <input name="assignments.from" type="text" size="8"/> –
+          <input name="assignments.to" type="text" size="8"/>
         </div>
         <div class="right1">
-          <h3><input name="assignment" type="text" size="40"/></h3>
-          <textarea name="description" cols="50" rows="3"></textarea>
+          <h3><input name="assignments.title" type="text" size="40"/></h3>
+          <textarea name="assignments.description" cols="50" rows="3"></textarea>
         </div>
       </section><TMPL_LOOP assignments>
       <section>
         <div class="left1">
-          <h2><input name="" type="text" size="23" value="<TMPL_VAR customer>"/></h2>
-          <input name="" type="text" size="8" value="<TMPL_VAR from>"/> –
-          <input name="" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
+          <h2><input name="assignments.customer" type="text" size="23" value="<TMPL_VAR customer>"/></h2>
+          <input name="assignments.from" type="text" size="8" value="<TMPL_VAR from>"/> –
+          <input name="assignments.to" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
         </div>
         <div class="right1">
-          <h3><input name="assignment" type="text" size="40" <TMPL_IF title>value="<TMPL_VAR title>"</TMPL_IF>/></h3>
-          <textarea name="description" cols="50" rows="3"><TMPL_VAR description></textarea>
+          <h3><input name="assignments.assignment" type="text" size="40" <TMPL_IF title>value="<TMPL_VAR title>"</TMPL_IF>/></h3>
+          <textarea name="assignments.description" cols="50" rows="3"><TMPL_VAR description></textarea>
         </div>
       </section></TMPL_LOOP>
 
       <h1>Utbildningsuppdrag</h1>
       <section>
         <div class="left1">
-          <h2><input name="" type="text" size="23"/></h2>
-          <input name="" type="text" size="8"/> –
-          <input name="" type="text" size="8"/>
+          <h2><input name="teaching.customer" type="text" size="23"/></h2>
+          <input name="teaching.from" type="text" size="8"/> –
+          <input name="teaching.to" type="text" size="8"/>
         </div>
         <div class="right1">
-          <h3><input name="teaching" type="text" size="40"/></h3>
-          <textarea name="description" cols="50" rows="6"></textarea>
+          <h3><input name="teaching.title" type="text" size="40"/></h3>
+          <textarea name="teaching.description" cols="50" rows="6"></textarea>
         </div>
       </section><TMPL_LOOP teaching>
       <section>
         <div class="left1">
-          <h2><input name="" type="text" size="23" value="<TMPL_VAR customer>"/></h2>
-          <input name="" type="text" size="8" value="<TMPL_VAR from>"/> –
-          <input name="" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
+          <h2><input name="teaching.customer" type="text" size="23" value="<TMPL_VAR customer>"/></h2>
+          <input name="teaching.from" type="text" size="8" value="<TMPL_VAR from>"/> –
+          <input name="teaching.to" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
         </div>
         <div class="right1">
-          <h3><input name="teaching" type="text" size="40" <TMPL_IF title>value="<TMPL_VAR title>"</TMPL_IF>/></h3>
-          <textarea name="description" cols="50" rows="6"><TMPL_VAR description></textarea>
+          <h3><input name="teaching.title" type="text" size="40" <TMPL_IF title>value="<TMPL_VAR title>"</TMPL_IF>/></h3>
+          <textarea name="teaching.description" cols="50" rows="6"><TMPL_VAR description></textarea>
         </div>
       </section></TMPL_LOOP>
 
       <h1>Kunskaper</h1>
       <section>
         <div class="left1">
-          <h2><input name="skills" type="text" size="23"/></h2>
+          <h2><input name="skills.header" type="text" size="23"/></h2>
         </div>
         <div class="right1">
-          <textarea name="description" cols="50" rows="3"></textarea>
+          <textarea name="skills.description" cols="50" rows="3"></textarea>
         </div>
       </section><TMPL_LOOP skills>
       <section>
         <div class="left1">
-          <h2><input name="skills" type="text" size="23" value="<TMPL_VAR header>"/></h2>
+          <h2><input name="skills.header" type="text" size="23" value="<TMPL_VAR header>"/></h2>
         </div>
         <div class="right1">
-          <textarea name="description" cols="50" rows="3"><TMPL_VAR description></textarea>
+          <textarea name="skills.description" cols="50" rows="3"><TMPL_VAR description></textarea>
         </div>
       </section></TMPL_LOOP>
 
       <h1>Utbildning</h1>
       <section>
         <div class="left1">
-          <h2><input name="header" type="text" size="23"/></h2>
+          <h2><input name="education.header" type="text" size="23"/></h2>
         </div>
         <div class="right1">
           <ul>
-            <li><input name="description" type="text" size="50"/></li>
+            <li><input name="education.descriptions." type="text" size="50"/></li>
           </ul>
         </div>
       </section><TMPL_LOOP education>
       <section>
         <div class="left1">
-          <h2><input name="header" type="text" size="23" value="<TMPL_VAR header>"/></h2>
+          <h2><input name="education.header" type="text" size="23" value="<TMPL_VAR header>"/></h2>
         </div>
         <div class="right1">
           <ul>
-            <li><input name="description" type="text" size="50"/></li><TMPL_LOOP descriptions>
-            <li><input name="description" type="text" size="50" value="<TMPL_VAR text>"/></li></TMPL_LOOP>
+            <li><input name="education.descriptions." type="text" size="50"/></li><TMPL_LOOP descriptions>
+            <li><input name="education.descriptions." type="text" size="50" value="<TMPL_VAR text>"/></li></TMPL_LOOP>
           </ul>
         </div>
       </section>
@@ -146,18 +146,20 @@
       <section>
         <ul>
           <li>
-            <input name="" type="text" size="40"/>,
-            <input name="" type="text" size="8"/> –
-            <input name="" type="text" size="8"/>
+            <input name="employment.role" type="text" size="12"/>,
+            <input name="employment.employer" type="text" size="40"/>,
+            <input name="employment.from" type="text" size="8"/> –
+            <input name="employment.to" type="text" size="8"/>
           </li>
         </ul>
       </section><TMPL_LOOP employment>
       <section>
         <ul>
           <li>
-            <input name="" type="text" size="40" value="<TMPL_VAR employer>"/>,
-            <input name="" type="text" size="8" value="<TMPL_VAR from>"/> –
-            <input name="" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
+            <input name="employment.role" type="text" size="12" value="<TMPL_VAR role>"/>,
+            <input name="employment.employer" type="text" size="40" value="<TMPL_VAR employer>"/>,
+            <input name="employment.from" type="text" size="8" value="<TMPL_VAR from>"/> –
+            <input name="employment.to" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
           </li>
         </ul>
       </section></TMPL_LOOP>
