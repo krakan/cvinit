@@ -9,51 +9,27 @@ my @admins = < jonas wallen joakim anders cmk peggy >;
 
 sub MAIN(
     Bool :$show-json = False,
-    Bool :$debug = False,
     Str :$gitdir = '/home/jonas/init/konsultprofil',
 ) {
     say "Content-Type: text/html\n";
 
-    my $data = slurp if %*ENV<CONTENT_LENGTH>;
-
-    my (%data, %seen);
-    if $data {
-        my @data = $data.split('&');
-        for @data -> $item {
-            my ($key, $val) = $item.split("=");
-            $val = uri-unescape($val);
-            if $key ~~ /caption|presentation|summary|assignments.description|teaching.description/ {
-                $val = inflate $val if $val;
-            }
-            given $key {
-                when /^(.+)\.(.+)\.$/ {
-                    my $group = $0;
-                    my $subkey = $1;
-                    if $val {
-                        %data{$group}[*-1]{$subkey} //= [];
-                        push @(%data{$group}[*-1]{$subkey}), $val;
-                    }
-                }
-                when /^(.+)\.(.+)$/ {
-                    my $group = $0;
-                    my $subkey = $1;
-                    %data{$group} //= [{},];
-                    if (%seen{$key}) {
-                        push @(%data{$group}), {} if %data{$group}[*-1].values;
-                        %seen = ();
-                    }
-                    %data{$group}[*-1]{$subkey} = $val if $val;
-                }
-                default {
-                    %data{$key} = $val if $val;
-                }
-            }
-            %seen{$key}++;
+    # handle supplied data
+    my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
+    my %data; # hash to hold input data
+    given %*ENV<REQUEST_METHOD> {
+        when 'POST' {
+            my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
+            my $boundary = '--' ~ $match[0];
+            my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
+            %data = parse $contentlength, $boundary;
+        }
+        when 'GET' {
+            my $data = %*ENV<QUERY_STRING>;
+            %data<debug> = 'on' if $data ~~ /(^|"&")"debug="/;
         }
     }
-  
+
     # figure out desired user name
-    my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
     my $user = %data<uid> // $loggedin;
 
     # read the json file
@@ -93,6 +69,7 @@ sub MAIN(
 
     # provide current uid for reference
     $json<uid> = $user;
+    $json<debug> = %data<debug>;
 
     # add alternative jsons if user is admin
     $json<browse> = so $loggedin eq @admins.any;
@@ -145,16 +122,81 @@ sub MAIN(
     print $template.output;
 
     # debug output
-    if $debug {
-        say "<pre>";
+    if %data<debug> {
+        say "<pre><font size='-2' color='#888'>";
         for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
             say "$key: %*ENV{$key}" if %*ENV{$key};
         }
+        say "<hr>";
         say to-json %data;
+        say "<hr>";
+        for %*ENV.kv -> $key, $val {
+            say "$key: $val";
+        }
+        say "<hr>";
+        say qx"ls -lat /usr/lib/cgi-bin";
+        say "<hr>";
         say "</pre>";
     }
 }
 
+# parse the request data
+sub parse (Int $contentlength, Str $boundary) {
+    return {} unless $contentlength;
+
+    my $data = $*IN.read($contentlength).decode('ISO-8859-1');
+    my (%data, %seen);
+    return {} unless $data;
+
+    my @data = $data.split($boundary);
+    for @data -> $item is copy {
+        next unless $item;
+        next if $item ~~ /^"--"\s*$/;
+        $item ~~ s/^\n//;
+        my $disp = $item ~~ s/^"Content-Disposition: " <-[\n]>*\n//;
+        my $filename = $disp ~~ /'filename="' (<-[\n]>+?) '"'/;
+        my $name = $disp ~~ /'name="' (<-[\n]>+?) '"'/;
+        if $filename {
+            $item ~~ s/^"Content-Type: " <-[\n]>*\n\n//;
+            my $image = $item;
+            $item = '';
+        } else {
+            $item ~~ s/^\n//;
+            $item ~~ s/\n$//;;
+        }
+        my ($key, $val) = ($name[0], $item);
+        $val = uri-unescape($val);
+        if $val and $key ~~ /caption|presentation|summary|assignments.description|teaching.description/ {
+            $val = inflate $val;
+        }
+        given $key {
+            when /^(.+)\.(.+)\.$/ {
+                my $group = $0;
+                my $subkey = $1;
+                if $val {
+                    %data{$group}[*-1]{$subkey} //= [];
+                    push @(%data{$group}[*-1]{$subkey}), $val;
+                }
+            }
+            when /^(.+)\.(.+)$/ {
+                my $group = $0;
+                my $subkey = $1;
+                %data{$group} //= [{},];
+                if (%seen{$key}) {
+                    push @(%data{$group}), {} if %data{$group}[*-1].values;
+                    %seen = ();
+                }
+                %data{$group}[*-1]{$subkey} = $val if $val;
+            }
+            default {
+                %data{$key} = $val;
+            }
+        }
+        %seen{$key}++;
+    }
+    %data;
+}
+ 
 # flatten array of strings for form output
 sub flatten ($ref) {
     my @return;
