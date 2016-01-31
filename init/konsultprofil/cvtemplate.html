@@ -158,7 +158,7 @@
       <section>
         <ul>
           <li>
-            <input name="employment.role" type="text" size="12" value="<TMPL_VAR role>"/>,
+            <input name="employment.role" type="text" size="12" <TMPL_IF role>value="<TMPL_VAR role>"</TMPL_IF>/>,
             <input name="employment.employer" type="text" size="40" value="<TMPL_VAR employer>"/>,
             <input name="employment.from" type="text" size="8" value="<TMPL_VAR from>"/> –
             <input name="employment.to" type="text" size="8" <TMPL_IF to>value="<TMPL_VAR to>"</TMPL_IF>/>
