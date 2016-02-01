@@ -16,7 +16,7 @@
           <select name="uid"><TMPL_LOOP name_list>
             <option value="<TMPL_VAR uid>"><TMPL_VAR name></option></TMPL_LOOP>
           </select>
-          <input type="hidden" name="debug" value="<TMPL_VAR debug>"/>
+          <input type="hidden" name="debug" <TMPL_IF debug>value="<TMPL_VAR debug>"</TMPL_IF>/>
           <input type="submit" value="Byt CV" />
         </div>
       </form></TMPL_IF>
@@ -25,7 +25,7 @@
     <form id="cv" method="post" enctype="multipart/form-data" action="cvweb.p6">
       <section>
         <div class="left0">
-          <input type="hidden" name="debug" value="<TMPL_VAR debug>"/>
+          <input type="hidden" name="debug" <TMPL_IF debug>value="<TMPL_VAR debug>"</TMPL_IF>/>
           <input type="hidden" name="uid" value="<TMPL_VAR uid>"/>
           <h1><input type="text" size="8" name="firstname" value="<TMPL_VAR firstname>"/><input type="text" size="8" name="firstname" value="<TMPL_VAR lastname>"/></h1>
           <textarea class="summary" name="summary" cols="45" rows="8"><TMPL_VAR summary></textarea>
