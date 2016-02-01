@@ -2,7 +2,6 @@
 use v6;
 use HTML::Template;
 use JSON::Fast;
-use URI::Escape;
 
 # these are authorized to edit all files
 my @admins = < jonas wallen joakim anders cmk peggy >;
@@ -19,11 +18,11 @@ sub MAIN(
     given %*ENV<REQUEST_METHOD> {
         when 'POST' {
             my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
-            my $boundary = '--' ~ $match[0];
+            my $boundary = "--$match[0]";
             my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
-            %data = parse $contentlength, $boundary;
+            %data = parse $contentlength, $boundary, $gitdir;
         }
-        when 'GET' {
+        default {
             my $data = %*ENV<QUERY_STRING>;
             %data<debug> = 'on' if $data ~~ /(^|"&")"debug="/;
         }
@@ -141,10 +140,11 @@ sub MAIN(
 }
 
 # parse the request data
-sub parse (Int $contentlength, Str $boundary) {
+sub parse (Int $contentlength, Str $boundary, Str $gitdir) {
     return {} unless $contentlength;
 
-    my $data = $*IN.read($contentlength).decode('ISO-8859-1');
+    my $buf = $*IN.read($contentlength);
+    my $data = $buf.decode('ISO-8859-1');
     my (%data, %seen);
     return {} unless $data;
 
@@ -153,20 +153,31 @@ sub parse (Int $contentlength, Str $boundary) {
         next unless $item;
         next if $item ~~ /^"--"\s*$/;
         $item ~~ s/^\n//;
-        my $disp = $item ~~ s/^"Content-Disposition: " <-[\n]>*\n//;
+
+        # header
+        my $disp = $item ~~ s/^"Content-Disposition: " <-[\n]>*?\n//;
         my $filename = $disp ~~ /'filename="' (<-[\n]>+?) '"'/;
         my $name = $disp ~~ /'name="' (<-[\n]>+?) '"'/;
+
+        # chunk content
+        $item ~~ s/\n$//;;
         if $filename {
+            # handle uploaded file
             $item ~~ s/^"Content-Type: " <-[\n]>*\n\n//;
-            my $image = $item;
-            $item = '';
+            my $img = open "$gitdir/$filename[0]", :w, :bin;
+            # undecode binary data
+            $img.write($item.encode('ISO-8859-1'));
+            $img.close;
+            $item = "$filename[0]";
         } else {
+            # remove header separator
             $item ~~ s/^\n//;
-            $item ~~ s/\n$//;;
         }
         my ($key, $val) = ($name[0], $item);
-        $val = uri-unescape($val);
-        if $val and $key ~~ /caption|presentation|summary|assignments.description|teaching.description/ {
+
+        # fix string encoding
+        $val = $val.encode('ISO-8859-1').decode;
+        if $val and $key ~~ /presentation|summary|assignments.description|teaching.description/ {
             $val = inflate $val;
         }
         given $key {
