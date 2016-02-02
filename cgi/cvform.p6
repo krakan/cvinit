@@ -10,15 +10,15 @@ sub MAIN(
     say "Content-Type: text/html\n";
 
     # read config file
-    my $conf = $?FILE;
-    $conf ~~ s| <-[/]>+ "/" <-[^/]>+ $ |etc/cv.json|;
-    my %cf = from-json slurp $conf;
+    my $base = $?FILE;
+    $base ~~ s| <-[/]>+ $ |..|;
+    my %cf = from-json slurp "$base/etc/cv.json";
 
     # handle supplied data
     my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
     $debug ||= True if %*ENV<QUERY_STRING> and %*ENV<QUERY_STRING> ~~ /"debug"/;
     my %data; # hash to hold input data
-    if %*ENV<REQUEST_METHOD> eq 'POST' {
+    if %*ENV<REQUEST_METHOD> && %*ENV<REQUEST_METHOD> eq 'POST' {
         my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
         my $boundary = "--$match[0]";
         my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
@@ -113,7 +113,7 @@ sub MAIN(
     }
 
     # apply the template
-    my $template = HTML::Template.from_file('cvtemplate.html');
+    my $template = HTML::Template.from_file("$base/etc/cvtemplate.html");
     $template.with_params(%$json);
     print $template.output;
 
