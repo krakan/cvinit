@@ -1,0 +1,13 @@
+* DONE generate pdf from json
+  CLOSED: [2016-02-02 Tue 09:10]
+* DONE transfer json to html
+  CLOSED: [2016-02-02 Tue 09:11]
+* DONE parse form data
+  CLOSED: [2016-02-02 Tue 09:11]
+* TODO authorize on saving instead of on reading
+* TODO save uploaded json
+* TODO fix git repo structure
+* TODO save image with name
+* TODO publish on github
+* TODO handle other submit actions
+* TODO add multiple new entries with js
