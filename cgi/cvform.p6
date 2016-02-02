@@ -10,9 +10,9 @@ sub MAIN(
     say "Content-Type: text/html\n";
 
     # read config file
-    my $file = $?FILE;
-    $file ~~ s| <-[/]>+ "/" <-[^/]>+ $ |etc/cv.json|;
-    my %cf = from-json slurp $file;
+    my $conf = $?FILE;
+    $conf ~~ s| <-[/]>+ "/" <-[^/]>+ $ |etc/cv.json|;
+    my %cf = from-json slurp $conf;
 
     # handle supplied data
     my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
