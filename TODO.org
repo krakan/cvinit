@@ -14,3 +14,5 @@
 * TODO publish on github
 * TODO handle other submit actions
 * TODO add multiple new entries with js
+* TODO build a grammar to parse the POST data
+* TODO switch from CGI to P6SGI
