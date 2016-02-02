@@ -27,13 +27,15 @@ So I concluded that LaTeX was the best alternative.
 
 ## Installation
 
-The `cvform.p6` script needs to go into a cgi-bin directory the
-`cv.css` should go to the document root of the same web server. The
-rest should go into the directory that is specified as gitdir in
-`etc/cv.json`.
+Install somewhere on a web server and point your web servers cgi-bin
+to the `cgi` directory and document root to the `html` directory.
 
-The script assumes that the web server provides an authenticated user
-name in the REMOTE_USER environment variable.
+The `cvform.p6` script assumes that the web server provides an
+authenticated user name in the REMOTE_USER environment variable.
+
+If you have an Init LDAP account you can access this at
+http://jonas.init.se/cgi-bin/cvform.p6. If not, get in touch so we can
+hire you and set up an LDAP account. ;)
 
 ## Copyright
 
