@@ -10,7 +10,8 @@
 * TODO save uploaded json
 * DONE fix git repo structure
   CLOSED: [2016-02-02 Tue 14:10]
-* TODO save image with name
+* DONE save image with name
+  CLOSED: [2016-02-02 Tue 18:41]
 * TODO publish on github
 * TODO handle other submit actions
 * TODO add multiple new entries with js
