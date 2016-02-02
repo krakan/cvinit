@@ -4,6 +4,8 @@
   CLOSED: [2016-02-02 Tue 09:11]
 * DONE parse form data
   CLOSED: [2016-02-02 Tue 09:11]
+* DONE allow QUERY_STRING on POST too
+  CLOSED: [2016-02-02 Tue 12:50]
 * TODO authorize on saving instead of on reading
 * TODO save uploaded json
 * TODO fix git repo structure
