@@ -3,15 +3,14 @@ use v6;
 use HTML::Template;
 use JSON::Fast;
 
-# these are authorized to edit all files
-my @admins = < jonas wallen joakim anders cmk peggy >;
-
 sub MAIN(
     Bool :$debug is copy = False,
     Bool :$show-json = False,
-    Str :$gitdir = '/home/jonas/init/konsultprofil',
 ) {
     say "Content-Type: text/html\n";
+
+    # read config file
+    my $cf = from-json slurp "../etc/cv.json";;
 
     # handle supplied data
     my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
@@ -21,7 +20,7 @@ sub MAIN(
         my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
         my $boundary = "--$match[0]";
         my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
-        %data = parse $contentlength, $boundary, $gitdir;
+        %data = parse $contentlength, $boundary, $cf<gitdir>;
     }
 
     # figure out desired user name
@@ -29,13 +28,13 @@ sub MAIN(
 
     # read the json file
     my $json;
-    my $file = "$gitdir/$user.json";
+    my $file = "$cf<gitdir>/$user.json";
     if $file.IO ~~ :r {
         $json = from-json slurp $file;
 
         # provide git history
         my @git = ("git", "log", "--date=format:%F %R", "--pretty=%H %cd – %s", "$user.json");
-        my $cwd = chdir $gitdir;
+        my $cwd = chdir $cf<gitdir>;
         my $proc = run @git, :out;
         if $proc {
             my @list;
@@ -67,7 +66,7 @@ sub MAIN(
     $json<debug> = $debug;
 
     # add alternative jsons if user is admin
-    $json<browse> = so $loggedin eq @admins.any;
+    $json<browse> = so $loggedin eq $cf<admins>.any;
     if ($json<browse>) {
         my @list = [
             {
@@ -75,7 +74,7 @@ sub MAIN(
                 name => "$json<firstname> $json<lastname>",
             },
         ];
-        for dir(path => $gitdir, test => /'.json'$/) -> $file {
+        for dir(path => $cf<gitdir>, test => /'.json'$/) -> $file {
             my $data = from-json slurp $file;
             if $data<firstname> {
                 my $name = "$data<firstname> $data<lastname>";
