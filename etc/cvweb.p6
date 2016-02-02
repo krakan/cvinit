@@ -7,6 +7,7 @@ use JSON::Fast;
 my @admins = < jonas wallen joakim anders cmk peggy >;
 
 sub MAIN(
+    Bool :$debug is copy = False,
     Bool :$show-json = False,
     Str :$gitdir = '/home/jonas/init/konsultprofil',
 ) {
@@ -14,18 +15,13 @@ sub MAIN(
 
     # handle supplied data
     my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
+    $debug ||= True if %*ENV<QUERY_STRING> and %*ENV<QUERY_STRING> ~~ /"debug"/;
     my %data; # hash to hold input data
-    given %*ENV<REQUEST_METHOD> {
-        when 'POST' {
-            my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
-            my $boundary = "--$match[0]";
-            my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
-            %data = parse $contentlength, $boundary, $gitdir;
-        }
-        default {
-            my $data = %*ENV<QUERY_STRING>;
-            %data<debug> = 'on' if $data ~~ /(^|"&")"debug="/;
-        }
+    if %*ENV<REQUEST_METHOD> eq 'POST' {
+        my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
+        my $boundary = "--$match[0]";
+        my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
+        %data = parse $contentlength, $boundary, $gitdir;
     }
 
     # figure out desired user name
@@ -68,7 +64,7 @@ sub MAIN(
 
     # provide current uid for reference
     $json<uid> = $user;
-    $json<debug> = %data<debug>;
+    $json<debug> = $debug;
 
     # add alternative jsons if user is admin
     $json<browse> = so $loggedin eq @admins.any;
@@ -121,7 +117,7 @@ sub MAIN(
     print $template.output;
 
     # debug output
-    if %data<debug> {
+    if $debug {
         say "<pre><font size='-2' color='#888'>";
         for <REQUEST_METHOD CONTENT_TYPE CONTENT_LENGTH QUERY_STRING REMOTE_USER> -> $key {
             say "$key: %*ENV{$key}" if %*ENV{$key};
