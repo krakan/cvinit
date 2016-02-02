@@ -8,7 +8,8 @@
   CLOSED: [2016-02-02 Tue 12:50]
 * TODO authorize on saving instead of on reading
 * TODO save uploaded json
-* TODO fix git repo structure
+* DONE fix git repo structure
+  CLOSED: [2016-02-02 Tue 14:10]
 * TODO save image with name
 * TODO publish on github
 * TODO handle other submit actions
