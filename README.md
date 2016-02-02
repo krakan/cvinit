@@ -27,9 +27,10 @@ So I concluded that LaTeX was the best alternative.
 
 ## Installation
 
-The `cvform.p6` script needs to go into a cgi-bin directory and the
-`cvtemplate.html` and `cv.css` should go to the document root of the
-same web server.
+The `cvform.p6` script needs to go into a cgi-bin directory the
+`cv.css` should go to the document root of the same web server. The
+rest should go into the directory that is specified as gitdir in
+`etc/cv.json`.
 
 The script assumes that the web server provides an authenticated user
 name in the REMOTE_USER environment variable.
