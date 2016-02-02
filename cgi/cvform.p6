@@ -10,10 +10,10 @@ sub MAIN(
     say "Content-Type: text/html\n";
 
     # read config file
-    my $base = $?FILE;
-    $base ~~ s| <-[/]>+ $ |..|;
-    my %cf = from-json slurp "$base/etc/cv.json";
-
+    my $gitdir = $?FILE;
+    $gitdir ~~ s| <-[/]>+ $ |..|;
+    my %cf = from-json slurp "$gitdir/etc/cv.json";
+    
     # handle supplied data
     my $loggedin = %*ENV<REMOTE_USER> // 'jonas';
     $debug ||= True if %*ENV<QUERY_STRING> and %*ENV<QUERY_STRING> ~~ /"debug"/;
@@ -22,7 +22,7 @@ sub MAIN(
         my $match = %*ENV<CONTENT_TYPE> ~~ / "boundary=" (.*) /;
         my $boundary = "--$match[0]";
         my $contentlength = %*ENV<CONTENT_LENGTH> + 0;
-        %data = parse $contentlength, $boundary, %cf<gitdir>;
+        %data = parse $contentlength, $boundary, $gitdir;
     }
 
     # figure out desired user name
@@ -30,13 +30,13 @@ sub MAIN(
 
     # read the json file
     my $json;
-    my $file = "%cf<gitdir>/$user.json";
+    my $file = "$gitdir/json/$user.json";
     if $file.IO ~~ :r {
         $json = from-json slurp $file;
 
         # provide git history
         my @git = ("git", "log", "--date=format:%F %R", "--pretty=%H %cd – %s", "$user.json");
-        my $cwd = chdir %cf<gitdir>;
+        my $cwd = chdir "$gitdir/json";
         my $proc = run @git, :out;
         if $proc {
             my @list;
@@ -76,7 +76,7 @@ sub MAIN(
                 name => "$json<firstname> $json<lastname>",
             },
         ];
-        for dir(path => %cf<gitdir>, test => /'.json'$/) -> $file {
+        for dir(path => "$gitdir/json", test => /'.json'$/) -> $file {
             my $data = from-json slurp $file;
             if $data<firstname> {
                 my $name = "$data<firstname> $data<lastname>";
@@ -161,7 +161,7 @@ sub parse (Int $contentlength, Str $boundary, Str $gitdir) {
         if $filename {
             # handle uploaded file
             $item ~~ s/^"Content-Type: " <-[\n]>*\n\n//;
-            my $img = open "$gitdir/$filename[0]", :w, :bin;
+            my $img = open "$gitdir/img/$filename[0]", :w, :bin;
             # undecode binary data
             $img.write($item.encode('ISO-8859-1'));
             $img.close;
