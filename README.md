@@ -1,8 +1,7 @@
 # Handle CV:s as JSON
 
 ## Author
-Jonas Linde <jonas@init.se>
-http://jonas.init.se/
+[Jonas Linde](http://jonas.init.se/) <jonas@init.se>
 
 ## TL;DR
 
@@ -37,6 +36,7 @@ name in the REMOTE_USER environment variable.
 
 ## Copyright
 
-The logo provided as `img/logo.png` is owned by Init AB. Replace it
-with your own if you wish to use the scripts. The rest of this
-repository is available under GPLv3 (see LICENSE).
+The logo provided as `img/logo.png` is owned by
+[Init AB](http://www.init.ab/). Replace it with your own if you wish
+to use the scripts. The rest of this repository is available under
+GPLv3 (see LICENSE).
