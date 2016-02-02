@@ -113,7 +113,7 @@ sub MAIN(
     }
 
     # apply the template
-    my $template = HTML::Template.from_file("$base/etc/cvtemplate.html");
+    my $template = HTML::Template.from_file("$gitdir/etc/cvtemplate.html");
     $template.with_params(%$json);
     print $template.output;
 
@@ -152,7 +152,7 @@ sub parse (Int $contentlength, Str $boundary, Str $gitdir) {
         $item ~~ s/^\n//;
 
         # header
-        my $disp = $item ~~ s/^"Content-Disposition: " <-[\n]>*?\n//;
+        my $disp = $item ~~ s:i/^"Content-Disposition: " <-[\n]>*?\n//;
         my $filename = $disp ~~ /'filename="' (<-[\n]>+?) '"'/;
         my $name = $disp ~~ /'name="' (<-[\n]>+?) '"'/;
 
@@ -160,12 +160,16 @@ sub parse (Int $contentlength, Str $boundary, Str $gitdir) {
         $item ~~ s/\n$//;;
         if $filename {
             # handle uploaded file
-            $item ~~ s/^"Content-Type: " <-[\n]>*\n\n//;
-            my $img = open "$gitdir/img/$filename[0]", :w, :bin;
-            # undecode binary data
-            $img.write($item.encode('ISO-8859-1'));
-            $img.close;
-            $item = "$filename[0]";
+            if $item ~~ s:i/^"Content-Type:" \s+ "image/" ("png"|"gif"|"jpg"|"jpeg") \n\n// {
+                my $image = "$gitdir/html/img/%data<uid>.$0";
+                my $img = open $image, :w, :bin;
+                # undecode binary data
+                $img.write($item.encode('ISO-8859-1'));
+                $img.close;
+                $item = $image;
+            } else {
+                $item = "$filename[0]";
+            }
         } else {
             # remove header separator
             $item ~~ s/^\n//;
@@ -195,6 +199,14 @@ sub parse (Int $contentlength, Str $boundary, Str $gitdir) {
                     %seen = ();
                 }
                 %data{$group}[*-1]{$subkey} = $val if $val;
+            }
+            when "uid" {
+                if $val ~~ /<-[a..z_.-]>/ {
+                    $*ERR.say("ERROR: bad user name");
+                    return {};
+                } else {
+                    %data{$key} = $val;
+                }
             }
             default {
                 %data{$key} = $val;
