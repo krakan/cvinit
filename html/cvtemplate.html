@@ -11,7 +11,7 @@
     <section>
       <div class="logo"><img src="/logo.png" alt="logo"/>
       <h2 class="header">Konsultprofil – <TMPL_VAR firstname> <TMPL_VAR lastname></h2></div><TMPL_IF browse>
-      <form class="browse" id="browse" method="post" enctype="multipart/form-data" action="cvweb.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
+      <form class="browse" id="browse" method="post" enctype="multipart/form-data" action="cvform.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
         <div>
           <select name="uid"><TMPL_LOOP name_list>
             <option value="<TMPL_VAR uid>"><TMPL_VAR name></option></TMPL_LOOP>
@@ -21,7 +21,7 @@
       </form></TMPL_IF>
     </section>
 
-    <form id="cv" method="post" enctype="multipart/form-data" action="cvweb.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
+    <form id="cv" method="post" enctype="multipart/form-data" action="cvform.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
       <section>
         <div class="left0">
           <input type="hidden" name="uid" value="<TMPL_VAR uid>"/>
