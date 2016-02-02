@@ -10,7 +10,7 @@
   <body>
     <section>
       <div class="logo"><img src="/logo.png" alt="logo"/>
-      <h2 class="header">Konsultprofil – <TMPL_VAR firstname> <TMPL_VAR lastname></h2></div><TMPL_IF browse>
+      <h2 class="header">Konsultprofil – <TMPL_VAR firstname> <TMPL_VAR lastname></h2></div>
       <form class="browse" id="browse" method="post" enctype="multipart/form-data" action="cvform.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
         <div>
           <select name="uid"><TMPL_LOOP name_list>
@@ -18,7 +18,7 @@
           </select>
           <input type="submit" value="Byt CV" />
         </div>
-      </form></TMPL_IF>
+      </form>
     </section>
 
     <form id="cv" method="post" enctype="multipart/form-data" action="cvform.p6<TMPL_IF debug>?debug=on</TMPL_IF>">
