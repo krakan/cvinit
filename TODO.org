@@ -17,4 +17,6 @@
 * TODO add multiple new entries with js
 * TODO build a grammar to parse the POST data
 * TODO switch from CGI to P6SGI
-* TODO JSON Schema
+* DONE JSON Schema
+  CLOSED: [2016-02-17 Wed 08:40]
+* TODO validate JSON data against the schema
