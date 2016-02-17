@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CV",
+  "description": "A CV for an Init consultant",
+  "type": "object",
+  "properties": {
+    "firstname": {
+      "description": "Consultant first name",
+      "type": "string"
+    },
+    "lastname": {
+      "description": "Consultant last name",
+      "type": "string"
+    },
+    "image": {
+      "description": "Portrait photo file name",
+      "type": "string"
+    },
+    "caption": {
+      "description": "Portrait photo caption",
+      "type": "string"
+    },
+    "summary": {
+      "description": "CV summary",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "presentation": {
+      "description": "Consultant presentation",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "description": "A few examples of roles, skills and assignments",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "type": "string"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "assignments": {
+      "description": "List of assignments",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "customer": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "teaching": {
+      "description": "List of teaching assignments",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "customer": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "skills": {
+      "description": "List of aquired skills",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "education": {
+      "description": "Courses and exams",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "type": "string"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "employment": {
+      "description": "Previous and current employments",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "employer": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
